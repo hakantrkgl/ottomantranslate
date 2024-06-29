@@ -1,0 +1,36 @@
+# Veri seti ve model kaydedilecek yollar:
+data: data/                       # Eğitim ve doğrulama veri setinin yolu
+save_model: models/               # Eğitilen modelin kaydedileceği yer
+save_checkpoint_steps: 10000       # Her bu kadar adımda bir model kontrol noktası kaydedilir
+keep_checkpoint: 10                # Kaç adet model kontrol noktasının saklanacağı
+seed: 3435                         # Rastgelelik için tohum değeri
+train_steps: 100000                # Toplam eğitim adım sayısı
+valid_steps: 10000                 # Her bu kadar adımda bir doğrulama yapılır
+report_every: 100                   # Her bu kadar adımda bir rapor alınır
+
+# Model yapılandırması:
+encoder_type: brnn                 # Kodlayıcı tipi (örneğin, rnn, brnn)
+word_vec_size: 128                 # Kelime vektör boyutu
+hidden_size: 512                   # Gizli katman boyutu
+layers: 1                          # Toplam katman sayısı
+
+# Optimizasyon ayarları:
+optim: adagrad                     # Kullanılacak optimizer (örneğin, adam, sgd, adagrad)
+learning_rate: 0.15                # Başlangıç öğrenme hızı
+adagrad_accumulator_init: 0.1      # Adagrad optimizer'ın birikim değeri başlangıcı
+max_grad_norm: 2                   # Maksimum gradyan normu (gradyan clipping için)
+
+# Topluluk (batch) ayarları:
+batch_size: 16                     # Topluluk boyutu (batch size)
+dropout: 0.0                       # Dropout oranı
+
+# Diğer model ayarları:
+copy_attn: 'true'                  # Kopya dikkatini (copy attention) etkinleştir
+global_attention: mlp              # Global dikkat tipi (örneğin, mlp, dot, general)
+reuse_copy_attn: 'true'            # Kopya dikkatini tekrar kullan
+
+# Paralel eğitim ayarları:
+world_size: 2                      # Paralel dünya boyutu (kaç cihazda eş zamanlı olarak eğitim yapılacağı)
+gpu_ranks:                         # Kullanılacak GPU cihazlarının listesi
+  - 0
+  - 1

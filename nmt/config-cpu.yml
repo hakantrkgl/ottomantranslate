@@ -1,0 +1,45 @@
+# Veri seti ve model kaydedilecek yollar:
+data: ../run/dataset.ot-tr         # Eğitim veri setinin yolu
+save_model: ../models/model.ot-tr  # Eğitilen modelin kaydedileceği yer
+save_checkpoint_steps: 10000       # Her bu kadar adımda bir model kontrol noktası kaydedilir
+keep_checkpoint: 10                # Kaç adet model kontrol noktasının saklanacağı
+seed: 3435                         # Rastgelelik için tohum değeri
+train_steps: 200000                # Toplam eğitim adım sayısı
+valid_steps: 10000                 # Her bu kadar adımda bir doğrulama yapılır
+warmup_steps: 8000                 # Isıtma adımları sayısı (optimizasyonun başlangıcındaki hız artışı)
+
+# Model yapılandırması:
+decoder_type: transformer          # Çevirmen tipi (örneğin, transformer, rnn)
+encoder_type: transformer          # Kodlayıcı tipi (örneğin, transformer, rnn)
+word_vec_size: 512                  # Kelime vektör boyutu
+hidden_size: 512                    # Gizli katman boyutu
+layers: 6                           # Toplam katman sayısı
+transformer_ff: 2048                # Transformer içindeki besleme ileri katman boyutu
+heads: 8                            # Multi-head dikkatin (multi-head attention) başlığı sayısı
+
+# Eğitim ayarları:
+accum_count: 2                      # Gradyan birikim sayısı
+optim: adam                         # Kullanılacak optimizer (örneğin, adam, sgd)
+adam_beta1: 0.9                     # Adam optimizer'ın beta1 parametresi
+adam_beta2: 0.998                   # Adam optimizer'ın beta2 parametresi
+decay_method: noam                  # Azaltma (decay) yöntemi (örneğin, noam, standard)
+learning_rate: 2.0                  # Başlangıç öğrenme hızı
+max_grad_norm: 0.0                  # Maksimum gradyan normu (gradyan clipping için)
+
+# Topluluk (batch) ayarları:
+batch_size: 4096                    # Topluluk boyutu (batch size)
+batch_type: tokens                  # Topluluk tipi (örneğin, tokens, sents)
+normalization: tokens               # Normalizasyon tipi (örneğin, tokens, sents)
+dropout: 0.1                        # Dropout oranı
+label_smoothing: 0.1                # Etiket düzeltme (label smoothing) oranı
+
+# Diğer model ayarları:
+param_init: 0.0                     # Parametre başlangıç değeri
+param_init_glorot: 'true'           # Glorot parametre başlangıç yöntemi (true veya false)
+position_encoding: 'true'           # Pozisyon kodlamasını etkinleştir (true veya false)
+
+#Yalnızca bir CPU cihazında çalışacak şekilde yapılandırılmıştır. GPU kullanmayacaksanız, world_size 1 olarak ayarlanmalı ve gpu_ranks bölümü boş bırakılmalıdır.
+
+# CPU kullanma ayarları:
+world_size: 1                       # Paralel dünya boyutu (sadece 1, yani tek bir cihazda eğitim yapılacak)
+gpu_ranks:                          # GPU kullanmayacağımız için bu bölüm boş

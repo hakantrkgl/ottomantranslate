@@ -1,0 +1,26 @@
+# Oluşturulan kelime dağarcıkları
+save_data: nmt/run/example
+src_vocab: nmt/run/example.vocab.src  # Kaynak dil (örneğin, İngilizce) kelime dağarcığının yolu
+tgt_vocab: nmt/run/example.vocab.tgt  # Hedef dil (örneğin, Almanca) kelime dağarcığının yolu
+overwrite: true
+
+# Tek bir CPU üzerinde eğitim yapma
+world_size: 1    # Toplam CPU sayısı (1 for CPU)
+gpu_ranks: []     # GPU kullanılmayacak, bu yüzden boş bırakılır
+
+# Corpus opts:
+data:
+    corpus_1:
+        path_src: nmt/data/src-train.txt  # Kaynak dil verisinin yolu (nmt/ içerisinde)
+        path_tgt: nmt/data/tgt-train.txt  # Hedef dil verisinin yolu (nmt/ içerisinde)
+    valid:
+        path_src: nmt/data/src-val.txt    # Kaynak dil doğrulama verisinin yolu (nmt/ içerisinde)
+        path_tgt: nmt/data/tgt-val.txt    # Hedef dil doğrulama verisinin yolu (nmt/ içerisinde)
+
+# Kontrol noktalarını kaydedileceği yerler
+save_model: nmt/run/model           # Modelin kaydedileceği klasör
+save_checkpoint_steps: 500        # Kaç adımda bir model kontrol noktası src
+
+# Eğitim ve doğrulama adım sayıları
+train_steps: 1000                 # Toplam eğitim adım sayısı
+valid_steps: 500                  # Doğrulama adımları
